@@ -1,0 +1,19 @@
+{
+  "name": "ross-stats-api",
+  "version": "1.0.0",
+  "description": "Backend for Ross Stats",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Taylor",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "json-over-tcp": "^0.3.2",
+    "net": "^1.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
