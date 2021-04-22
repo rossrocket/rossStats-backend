@@ -617,22 +617,10 @@ is-yarn-global@^0.3.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.3.0.tgz#d502d3382590ea3004893746754c89139973e232"
   integrity sha512-VjSeb/lHmkoyd8ryPVIKvOCn4D1koMqY+vqyjjUfc3xyKtP4dYOxM44sZrnqQSzSds3xyOrUTLTC9LVCVgLngw==
 
-its@~1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/its/-/its-1.0.2.tgz#423f45bba995a59c68d1ecf8e848dc10891b4cd2"
-  integrity sha1-Qj9Fu6mVpZxo0ez46EjcEIkbTNI=
-
 json-buffer@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
   integrity sha1-Wx85evx11ne96Lz8Dkfh+aPZqJg=
-
-json-over-tcp@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/json-over-tcp/-/json-over-tcp-0.3.2.tgz#a2f1145e6fc45949fc73cd0b738a03004bea72f3"
-  integrity sha1-ovEUXm/EWUn8c80Lc4oDAEvqcvM=
-  dependencies:
-    its "~1.0.0"
 
 keyv@^3.0.0:
   version "3.1.0"

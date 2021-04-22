@@ -5,41 +5,42 @@ const httpport = 8000;
 const tcpport = 7327;
 const host = 'localhost';
 
-// Creat a new TCP client.
-// const tcpClient = new Net.Socket();
-// // Send a connection requres to the server.
-// tcpClient.connect({ port: tcpport, host }, () => {
-//     console.log('TCP connection established.');
-//     tcpClient.write(JSON.stringify({name:"Taylor",age:32}));
-// });
-    
-// tcpClient.on('error', (error) => {
-//     console.error('There was an error', error);
-// });
-
-
-const server = net.createServer((socket) => {
-    const obj = {name:"Taylor", dog:"Mattie"};
-    let buffer = Buffer.from(JSON.stringify(obj));
+// stringifies json and concats a null then writes to the TCP socket
+const writeToDatalinq = (socket,json) => {
+    let buffer = Buffer.from(JSON.stringify(json));
     const nullBuffer = Buffer.from([0x00]);
     buffer = Buffer.concat([buffer, nullBuffer]);
     socket.write(buffer);
-    socket.pipe(socket);
-})
+}
 
-server.on('error', (error) => {
-    console.error('There was an error', error);
-})
-server.listen(tcpport,host);
+//Create a new TCP client.
+const tcpClient = new net.Socket();
 
+// Create connection with TCP server (DataLinq).
+tcpClient.connect({ port: tcpport, host }, () => {
+    console.log('TCP connection established.');
+});
 
+tcpClient.on('error', (error) => {
+    console.error('There was a client error', error);
+});
 
-
-
+// response when receiving a get request
 app.get('/', (request, response) => {
-    response.json({ info: 'This is my string!'})
+    const json = { info: 'Lets connect!'}
+    response.json(json)
+    writeToDatalinq(tcpClient,json)
 })
 
+app.get('/sports', (request, response) => {
+    const json = { info: 'I love games!'}
+    response.json(json)
+    writeToDatalinq(tcpClient,json)
+})
+
+// listens for a connection at httpport
 app.listen(httpport, () => {
     console.log(`App is running on ${httpport}`)
 })
+
+
