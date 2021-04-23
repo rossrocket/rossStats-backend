@@ -1,3 +1,4 @@
+const Election = require('./endpoints.js')
 const net = require('net');
 const express = require('express');
 const app = express();
@@ -32,8 +33,10 @@ app.get('/', (request, response) => {
     writeToDatalinq(tcpClient,json)
 })
 
-app.get('/sports', (request, response) => {
-    const json = { info: 'I love games!'}
+app.get('/election/state/:state', async (request, response) => {
+    console.log("GET /election/state/:state");
+    const json = await Election.presByState(request,response);
+    console.log(json);
     response.json(json)
     writeToDatalinq(tcpClient,json)
 })
