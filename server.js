@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const Election = require('./endpoints.js')
 const { tcpClient } = require('./tcpClient.js');
 const express = require('express');
@@ -8,7 +10,8 @@ const tcpport = 7327;
 const host = 'localhost';
 
 const allowedOrigins = [
-    "http://localhost:3000"
+    process.env.FRONTEND_BASE_URL_LOCAL,
+    process.env.FRONTEND_BASE_URL_IP,
 ].map(domain => new RegExp(`https?${domain.replace(/https?/, '')}`))
 
 const corsOptions = {
