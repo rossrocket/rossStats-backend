@@ -1,14 +1,26 @@
 const Election = require('./endpoints.js')
 const { tcpClient } = require('./tcpClient.js');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const httpport = 8000;
 const tcpport = 7327;
 const host = 'localhost';
 
+const allowedOrigins = [
+    "http://localhost:3000"
+].map(domain => new RegExp(`https?${domain.replace(/https?/, '')}`))
+
+const corsOptions = {
+    origin: allowedOrigins,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+};
+app.use(cors(corsOptions));
+
 // response when receiving a get request
 app.get('/', (request, response) => {
-    const json = { info: 'Lets connect!'}
+    const json = { info: 'Lets connect!' }
     response.json(json)
     writeToDatalinq(json)
 })
