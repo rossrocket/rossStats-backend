@@ -53,6 +53,10 @@ const endConnection = (request, response) => {
     return response.status(200).json({ message: "TCP connection has been closed" })
 };
 
+const connectionStatus = (request, response) => {
+    return response.status(200).json({ isConnected })
+};
+
 // stringifies json and concats a null then writes to the TCP socket
 const writeToDatalinq = (json) => {
     if (!isConnected) {
@@ -69,4 +73,5 @@ module.exports = {
     writeToDatalinq,
     startConnection,
     endConnection,
+    connectionStatus,
 };

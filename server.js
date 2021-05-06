@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const Election = require('./endpoints.js')
+const Election = require('./election.js')
 const Tcp = require('./tcpClient.js');
 const express = require('express');
 const cors = require('cors');
@@ -28,6 +28,7 @@ app.get('/', (request, response) => {
     Tcp.writeToDatalinq(json)
 });
 app.get('/election/state/:state', Election.presByState);
+app.get('/tcp/status', Tcp.connectionStatus);
 app.post('/tcp/start', Tcp.startConnection);
 app.post('/tcp/stop', Tcp.endConnection);
 
