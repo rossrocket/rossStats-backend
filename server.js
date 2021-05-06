@@ -1,13 +1,12 @@
 require('dotenv').config();
 
-const Election = require('./endpoints.js')
-const { tcpClient } = require('./tcpClient.js');
+const Election = require('./election.js')
+const Tcp = require('./tcpClient.js');
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const httpport = 8000;
-const tcpport = 7327;
-const host = 'localhost';
+
 
 const allowedOrigins = [
     process.env.FRONTEND_BASE_URL_LOCAL,
@@ -20,26 +19,21 @@ const corsOptions = {
     credentials: true,
 };
 app.use(cors(corsOptions));
+app.use(express.json());
 
-// response when receiving a get request
+// list of endpoints
 app.get('/', (request, response) => {
     const json = { info: 'Lets connect!' }
     response.json(json)
-    writeToDatalinq(json)
-})
-
-app.get('/election/state/:state', Election.presByState)
+    Tcp.writeToDatalinq(json)
+});
+app.get('/election/state/:state', Election.presByState);
+app.get('/tcp/status', Tcp.connectionStatus);
+app.post('/tcp/start', Tcp.startConnection);
+app.post('/tcp/stop', Tcp.endConnection);
 
 // listens for a connection at httpport
 app.listen(httpport, () => {
-    console.log(`App is running on ${httpport}`)
+    console.log(`App is running on ${httpport}`);
 })
 
-// Create connection with TCP server (DataLinq).
-tcpClient.connect({ port: tcpport, host }, () => {
-    console.log('TCP connection established.');
-});
-
-tcpClient.on('error', (error) => {
-    console.error('There was a client error', error);
-});
