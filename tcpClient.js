@@ -5,6 +5,7 @@ const tcpClient = new net.Socket();
 let isConnected = false;
 
 const startConnection = (request, response) => {
+    request.setTimeout(1000 * 60 * 5);
     if (!request.body) {
         return response.status(400).json({ error: { message: "host and port are required in body" } });
     };
@@ -23,6 +24,7 @@ const startConnection = (request, response) => {
         // Create connection with TCP server (DataLinq).
         tcpClient.connect({ port, host }, () => {
             console.log(`TCP connection established at ${host}:${port}`);
+            console.log(tcpClient.address());
             isConnected = true;
             return response.status(200).json({ message: "Connection established", host, port });
         });

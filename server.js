@@ -23,9 +23,8 @@ app.use(express.json());
 
 // list of endpoints
 app.get('/', (request, response) => {
-    const json = { info: 'Lets connect!' }
-    response.json(json)
-    Tcp.writeToDatalinq(json)
+    const json = { info: 'Lets connect!' };
+    response.status(200).json(json);
 });
 app.get('/election/state/:state', Election.presByState);
 app.get('/tcp/status', Tcp.connectionStatus);
