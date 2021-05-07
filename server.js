@@ -5,7 +5,7 @@ const Tcp = require('./tcpClient.js');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const httpport = 8000;
+const httpport = process.env.PORT || 8000;
 
 
 const allowedOrigins = [
